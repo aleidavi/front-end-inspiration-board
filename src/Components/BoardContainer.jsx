@@ -2,7 +2,7 @@ import BoardTab from "./BoardTab";
 import './BoardContainer.css';
 import { act } from "react";
 
-const BoardContainer = ({ tabs, activeTab }) => {
+const BoardContainer = ({ tabs, activeTab, handleActiveTab }) => {
   
   const tabComponents = tabs.map((tab, index) => {
     return (
@@ -12,6 +12,7 @@ const BoardContainer = ({ tabs, activeTab }) => {
           content={tab.content}
           index={index}
           isActive={activeTab === index}
+          handleActiveTab={handleActiveTab}
         ></BoardTab>
       </div>
     )

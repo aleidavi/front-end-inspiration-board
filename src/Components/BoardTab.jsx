@@ -1,13 +1,13 @@
-const BoardTab = ({ title, content, index, isActive}) => {
-    const handleTabClick = (index) => {
-        console.log(index);
+const BoardTab = ({ title, content, index, isActive, handleActiveTab}) => {
+    const onTabClick = (index) => {
+        handleActiveTab(index);
     }
     return (
         <>
         <div className={`tab ${isActive ? 'active' : ''}`}>
             <button
             className='tab-button'
-            onClick={() => console.log(title)}
+            onClick={() => onTabClick(index)}
             >{title}</button>
         </div>
         <div className='tab-content'>
