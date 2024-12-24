@@ -1,4 +1,4 @@
-.board-container {
+.board-tabs {
     display: flex;
     flex-direction: row;
 }

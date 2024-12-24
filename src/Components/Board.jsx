@@ -1,4 +1,4 @@
-import './BoardTab.css';
+import './Board.css';
 const BoardTab = ({ title, content, index, isActive, handleActiveTab}) => {
     const onTabClick = (index) => {
         handleActiveTab(index);

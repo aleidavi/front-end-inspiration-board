@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import BoardContainer from './Components/BoardContainer';
+import BoardList from './Components/BoardList';
 import axios from 'axios';
 
 const kBaseUrl = 'http://localhost:5000'
@@ -30,7 +30,6 @@ function App() {
   },[]);
 
   const handleActiveTab = (index) => {
-
     setActiveTab(index);
   }
 
@@ -46,11 +45,11 @@ function App() {
       <hr className='divider'></hr>
       <div className='main'>
         <button>All</button>
-        <BoardContainer 
-          tabs={boardData} 
+        <BoardList 
+          boardData={boardData} 
           activeTab={activeTab}
           handleActiveTab={handleActiveTab}
-      > </BoardContainer>
+      > </BoardList>
       </div>
     </div>
   )
