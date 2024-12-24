@@ -6,6 +6,18 @@ import axios from 'axios';
 
 const kBaseUrl = 'http://localhost:5000'
 
+const formatApi = (apiCard) => {
+  // convert api data to the format we need
+  const newCard = {
+    ...apiCard,
+    boardId: apiCard.board_id,
+    likesCount: apiCard.likes_count
+  };
+  delete newCard.board_id;
+  delete newCard.likes_count;
+  return newCard
+};
+
 const getAllBoardsApi = () => {
   return axios.get(`${kBaseUrl}/boards`)
     .then(response => {
@@ -18,7 +30,12 @@ const getAllBoardsApi = () => {
 const getAllCardsApi = () => {
   return axios.get(`${kBaseUrl}/cards`)
     .then(response => {
-      return response.data})
+      const apiCards = response.data;
+      const newCards = apiCards.map(formatApi);
+      console.log(apiCards);
+      console.log(newCards);
+      return newCards;
+    })
     .catch(error => {
       console.log(error)
     })
@@ -28,7 +45,7 @@ function App() {
   const [activeTab, setActiveTab] = useState(0);
   const [boardData, setBoardData] = useState([]);
   const [cardData, setCardData] = useState([]);
-   
+  
 
   const getAllBoards = () => {
     getAllBoardsApi()
@@ -71,10 +88,10 @@ function App() {
           handleActiveTab={handleActiveTab}
         ></BoardList>
       </div>
-      <div className='cards-content'>
-        <CardList>
+      <div>
+        <CardList
           cardData={cardData}
-        </CardList>
+        ></CardList>
       </div>
       
       
