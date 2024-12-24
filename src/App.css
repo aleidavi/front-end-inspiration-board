@@ -16,7 +16,7 @@
   position: fixed;
   right: 10px;
 }
-.main {
+.tabs {
   padding: 5px;
   width: 100%;
   max-width: 1000px;
@@ -39,4 +39,12 @@ button {
 
 .header button:hover {
   background-color: rgb(235, 62, 62);
+}
+
+.all {
+  height: 40.1875px;
+}
+
+.cards-content {
+  background-color: blue;
 }

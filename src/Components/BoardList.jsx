@@ -1,7 +1,6 @@
 import Board from "./Board";
 import './boardList.css';
 
-
 const boardList = ({ boardData, activeTab, handleActiveTab }) => {
   
   const tabComponents = boardData.map((board, index) => {
