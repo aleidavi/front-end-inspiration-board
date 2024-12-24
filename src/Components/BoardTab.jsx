@@ -1,3 +1,4 @@
+import './BoardTab.css';
 const BoardTab = ({ title, content, index, isActive, handleActiveTab}) => {
     const onTabClick = (index) => {
         handleActiveTab(index);
@@ -6,7 +7,7 @@ const BoardTab = ({ title, content, index, isActive, handleActiveTab}) => {
         <>
         <div className={`tab ${isActive ? 'active' : ''}`}>
             <button
-            className='tab-button'
+            className={`tab-button one c${index}`}
             onClick={() => onTabClick(index)}
             >{title}</button>
         </div>

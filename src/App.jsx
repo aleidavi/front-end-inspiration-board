@@ -1,29 +1,58 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import BoardContainer from './Components/BoardContainer';
+import axios from 'axios';
 
+const kBaseUrl = 'http://localhost:5000'
+
+const getAllBoardsApi = () => {
+  return axios.get(`${kBaseUrl}/boards`)
+    .then(response => {
+      return response.data})
+    .catch(error => {
+      console.log(error)
+    })
+
+}
 function App() {
   const [activeTab, setActiveTab] = useState(0);
-  const [tabs, setTabs] = useState([
-    {'title': 'All', 'content': 'All Content'},
-    {'title': '2025', 'content': '2025 dream board'},
-    {'title': 'vacation', 'content': 'vacation dream board'},
-    {'title': 'career', 'content': 'career dream board'},
-  ]);
+  const [boardData, setBoardData] = useState([])
+
+  const getAllBoards = () => {
+    getAllBoardsApi()
+      .then(boards => {
+        setBoardData(boards)
+      })
+  }
+
+  useEffect(()=> {
+    getAllBoards()
+  },[]);
 
   const handleActiveTab = (index) => {
+
     setActiveTab(index);
   }
 
   return (
-    <>
-      <h1>Dream Board</h1>
-      <BoardContainer 
-      tabs={tabs} 
-      activeTab={activeTab}
-      handleActiveTab={handleActiveTab}
-      />
-    </>
+    <div className='App'>
+      <div className='header'>
+        <h1 className='heading'>Dream Board</h1>
+        <div className='create-container'>
+          <button>New Board</button>
+          <button>New Card</button>
+        </div>
+      </div>
+      <hr className='divider'></hr>
+      <div className='main'>
+        <button>All</button>
+        <BoardContainer 
+          tabs={boardData} 
+          activeTab={activeTab}
+          handleActiveTab={handleActiveTab}
+      > </BoardContainer>
+      </div>
+    </div>
   )
 }
 
