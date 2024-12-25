@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState } from 'react';
 import './NewBoardForm.css'
 
 const NewBoardForm = ({ handleBoardSubmit}) => {
   const kDefaultBoardForm = {
-    title: "",
-    owner: "",
+    title: '',
+    owner: '',
   };
   const [boardFormData, setBoardFormData] = useState(kDefaultBoardForm);
-  const [errorMessage, setErrorMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleChange = (event) => {
     const fieldName = event.target.name;
@@ -17,19 +17,30 @@ const NewBoardForm = ({ handleBoardSubmit}) => {
     setBoardFormData(newBoardFormData);
   };
 
-  const onHandleSubmit = (event) => {
-    event.preventDefault();
-    if (!boardFormData.title && !boardFormData.owner) {
-      setErrorMessage("Error: Title and Owner cannot be empty!")
-    } else if (!boardFormData.title) {
-      setErrorMessage("Title cannot be empty!")
-    } else if (!boardFormData.owner) {
-      setErrorMessage("Owner cannot be empty!")
-    } else {
-      handleBoardSubmit(boardFormData);
-      setBoardFormData(kDefaultBoardForm);
+    const onHandleSubmit = (event) => {
+      event.preventDefault();
+      setErrorMessage('')
+      try {
+        if (!boardFormData.title && !boardFormData.owner) {
+          throw new Error('Title and Owner\ncannot be empty!');
+        } 
+        if (!boardFormData.title) {
+          throw new Error("Title cannot be empty!");
+        } 
+        if (!boardFormData.owner) {
+          throw new Error("Owner cannot be empty!");
+        }
+        
+        // Submit form if validation passes
+        handleBoardSubmit(boardFormData);
+        setBoardFormData(kDefaultBoardForm);
+        
+        setErrorMessage(`Board ${boardFormData.title} created successfully`)
+        setTimeout(() => setErrorMessage(''), 3000); 
+    } catch (error) {
+      setErrorMessage(`Error: ${error.message}`)
     }
-  }
+  };
 
   const emptyTitle = !boardFormData.title ? 'empty': ''
   const emptyOwner = !boardFormData.owner ? 'empty': ''
@@ -37,23 +48,23 @@ const NewBoardForm = ({ handleBoardSubmit}) => {
   return (
     <>
       <form onSubmit={onHandleSubmit}>
-        <div className="form-field">
-          <label htmlFor="title">Title:  </label>
+        <div className='form-field'>
+          <label htmlFor='title'>Title:  </label>
           <input className={emptyTitle}
-            type="text"
-            id="title"
-            name="title"
+            type='text'
+            id='title'
+            name='title'
             value={boardFormData.title}
             onChange={handleChange}
           ></input>
         </div>
-        <div className="form-field">
-          <label htmlFor="owner">Owner: </label>
+        <div className='form-field'>
+          <label htmlFor='owner'>Owner: </label>
           <input className={emptyOwner}
-            type="text"
-            id="owner"
-            name="owner"
-            value={boardFormData.value}
+            type='text'
+            id='owner'
+            name='owner'
+            value={boardFormData.owner}
             onChange={handleChange}
           ></input>
         </div>
@@ -62,7 +73,9 @@ const NewBoardForm = ({ handleBoardSubmit}) => {
           type='submit'></input>
         </div>
       </form>
-      <div>{errorMessage}</div>
+      <div className='message'>
+        {errorMessage}
+      </div>
     </>
   );
 };
