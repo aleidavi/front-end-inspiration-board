@@ -18,6 +18,7 @@ const formatApi = (apiCard) => {
   return newCard
 };
 
+// helper function to get BOARD info from backend
 const getAllBoardsApi = () => {
   return axios.get(`${kBaseUrl}/boards`)
     .then(response => {
@@ -27,6 +28,7 @@ const getAllBoardsApi = () => {
     })
 }
 
+// helper function to get CARD info from backend
 const getAllCardsApi = () => {
   return axios.get(`${kBaseUrl}/cards`)
     .then(response => {
@@ -40,11 +42,12 @@ const getAllCardsApi = () => {
 };
 
 function App() {
-  const [activeBoardIndex, setActiveBoardIndex] = useState(0)
+  const [activeBoardId, setActiveBoardId] = useState(0)
   const [boardData, setBoardData] = useState([]);
   const [cardData, setCardData] = useState([]);
   
 
+  // function that gets board api promise and then chains to set board data 
   const getAllBoards = () => {
     getAllBoardsApi()
       .then(boards => {
@@ -52,6 +55,7 @@ function App() {
       })
   }
 
+  // function that gets card api promise and then chains to set card data 
   const getAllCards = () => {
     getAllCardsApi()
       .then(cards => {
@@ -59,13 +63,15 @@ function App() {
       })
   }
 
+  // get api data when mounting
   useEffect(()=> {
     getAllBoards();
     getAllCards();
   },[]);
 
+  // Board component calls this fn, passes in id, to set active board
   const handleActiveBoard = (id) => {
-    setActiveBoardIndex(id);
+    setActiveBoardId(id);
   }
 
   return (
@@ -79,21 +85,18 @@ function App() {
       </div>
       <hr className='divider'></hr>
       <div className='tabs'>
-        <button className='all' onClick={() => setActiveBoardIndex(0)}>All</button>
+        <button className='all' onClick={() => setActiveBoardId(0)}>All</button>
         <BoardList 
           boardData={boardData} 
-          activeBoardIndex={activeBoardIndex}
           handleActiveBoard={handleActiveBoard}
         ></BoardList>
       </div>
       <div>
         <CardList
           cardData={cardData}
-          activeBoardIndex={activeBoardIndex}
+          activeBoardId={activeBoardId}
         ></CardList>
       </div>
-      
-      
     </div>
   )
 }

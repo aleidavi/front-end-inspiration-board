@@ -1,8 +1,8 @@
 import Card from './Card'
 import './CardList.css'
 
-const CardList = ({ cardData, activeBoardIndex }) => {
-  const selectedBoardData = activeBoardIndex == 0 ? cardData : cardData.filter(card => card.boardId == activeBoardIndex)
+const CardList = ({ cardData, activeBoardId }) => {
+  const selectedBoardData = activeBoardId == 0 ? cardData : cardData.filter(card => card.boardId == activeBoardId)
   const cardComponents = selectedBoardData.map((card, index) => {
     return (
       <Card
