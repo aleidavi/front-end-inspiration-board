@@ -77,6 +77,15 @@ function App() {
     setActiveBoardId(id);
   }
 
+  // when new Board is submitted
+  const handleBoardSubmit = (boardFormData) => {
+    return axios.post(`${kBaseUrl}/boards`, boardFormData)
+      .then((result) => {
+        setBoardData((prevBoards) => [...prevBoards, result.data])
+      })
+      .catch((error) => console.log(error))
+  }
+  
   return (
     <div className='App'>
       <div className='header'>
@@ -102,7 +111,9 @@ function App() {
       </div>
       <Modal open={isOpen} onClose={() => setIsOpen(false)}>
         <h2>Create a New Board</h2>
-        <NewBoardForm></NewBoardForm>
+        <NewBoardForm
+          handleBoardSubmit={handleBoardSubmit}
+        ></NewBoardForm>
       </Modal>
     </div>
   )
