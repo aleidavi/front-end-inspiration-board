@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import BoardList from './Components/BoardList';
 import CardList from './Components/CardList';
+import Modal from './Components/Modal';
+import NewBoardForm from './Components/NewBoardForm';
 import axios from 'axios';
 
 const kBaseUrl = 'http://localhost:5000'
@@ -40,12 +42,13 @@ const getAllCardsApi = () => {
       console.log(error)
     })
 };
-
+///////////////////////
 function App() {
   const [activeBoardId, setActiveBoardId] = useState(0)
   const [boardData, setBoardData] = useState([]);
   const [cardData, setCardData] = useState([]);
   
+  const [isOpen, setIsOpen] = useState(false)
 
   // function that gets board api promise and then chains to set board data 
   const getAllBoards = () => {
@@ -79,7 +82,7 @@ function App() {
       <div className='header'>
         <h1 className='heading'>Dream Board</h1>
         <div className='create-container'>
-          <button>New Board</button>
+          <button onClick={()=> setIsOpen(true)}>New Board</button>
           <button>New Card</button>
         </div>
       </div>
@@ -97,6 +100,10 @@ function App() {
           activeBoardId={activeBoardId}
         ></CardList>
       </div>
+      <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+        <h2>Create a New Board</h2>
+        <NewBoardForm></NewBoardForm>
+      </Modal>
     </div>
   )
 }
