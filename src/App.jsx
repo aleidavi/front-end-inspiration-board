@@ -32,8 +32,6 @@ const getAllCardsApi = () => {
     .then(response => {
       const apiCards = response.data;
       const newCards = apiCards.map(formatApi);
-      console.log(apiCards);
-      console.log(newCards);
       return newCards;
     })
     .catch(error => {
@@ -42,7 +40,7 @@ const getAllCardsApi = () => {
 };
 
 function App() {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeBoardIndex, setActiveBoardIndex] = useState(0)
   const [boardData, setBoardData] = useState([]);
   const [cardData, setCardData] = useState([]);
   
@@ -66,8 +64,8 @@ function App() {
     getAllCards();
   },[]);
 
-  const handleActiveTab = (index) => {
-    setActiveTab(index);
+  const handleActiveBoard = (id) => {
+    setActiveBoardIndex(id);
   }
 
   return (
@@ -81,16 +79,17 @@ function App() {
       </div>
       <hr className='divider'></hr>
       <div className='tabs'>
-        <button className='all'>All</button>
+        <button className='all' onClick={() => setActiveBoardIndex(0)}>All</button>
         <BoardList 
           boardData={boardData} 
-          activeTab={activeTab}
-          handleActiveTab={handleActiveTab}
+          activeBoardIndex={activeBoardIndex}
+          handleActiveBoard={handleActiveBoard}
         ></BoardList>
       </div>
       <div>
         <CardList
           cardData={cardData}
+          activeBoardIndex={activeBoardIndex}
         ></CardList>
       </div>
       

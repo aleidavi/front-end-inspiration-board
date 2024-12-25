@@ -1,21 +1,19 @@
 import Board from "./Board";
 import './boardList.css';
 
-const boardList = ({ boardData, activeTab, handleActiveTab }) => {
-  
+
+const boardList = ({ boardData, handleActiveBoard }) => {
   const tabComponents = boardData.map((board, index) => {
     return (
-      <>
       <div key={index}>
         <Board
+          id={board.id}
           title={board.title}
-          index={index}
-          isActive={activeTab === index}
-          handleActiveTab={handleActiveTab}
+          owner={board.owner}
+          index={index} // for board css coloring
+          handleActiveBoard={handleActiveBoard}
         ></Board>
-      </div>
-      </>
-      
+    </div>
     )
   });
   return (
