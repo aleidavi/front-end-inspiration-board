@@ -16,9 +16,12 @@ const CardList = ({ cardData, activeBoardIndex }) => {
   });
 
   return (
-    <div className='cards'>
-      {cardComponents}
-    </div>
+    <>
+      <div className='cards'>
+        {cardComponents}
+      </div>
+    </>
+    
   );
 };
 export default CardList;

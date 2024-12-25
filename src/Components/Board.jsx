@@ -1,15 +1,15 @@
 import './Board.css';
-const BoardTab = ({ id, title, index, isActive, handleActiveBoard}) => {
+const BoardTab = ({ id, title, index, handleActiveBoard}) => {
     const onTabClick = () => {
       handleActiveBoard(id);
     }
     return (
-      <div className={`tab ${isActive ? 'active' : ''}`}>
+      <div>
           <button
           // index + 1 so that it matches the id of the card in the db
           className={`tab-button one c${index+1}`}
           onClick={() => onTabClick()}
-          >{title}</button>
+          ># {title}</button>
       </div>
     );
 };
