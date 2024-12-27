@@ -37,5 +37,6 @@ input {
 }
 .message {
     text-align: center;
+    white-space: pre-line;
     margin-top: 20px;
 }

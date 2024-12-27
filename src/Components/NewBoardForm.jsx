@@ -17,28 +17,39 @@ const NewBoardForm = ({ handleBoardSubmit}) => {
     setBoardFormData(newBoardFormData);
   };
 
-    const onHandleSubmit = (event) => {
-      event.preventDefault();
-      setErrorMessage('')
-      try {
-        if (!boardFormData.title && !boardFormData.owner) {
-          throw new Error('Title and Owner\ncannot be empty!');
-        } 
-        if (!boardFormData.title) {
-          throw new Error("Title cannot be empty!");
-        } 
-        if (!boardFormData.owner) {
-          throw new Error("Owner cannot be empty!");
-        }
-        
-        // Submit form if validation passes
-        handleBoardSubmit(boardFormData);
-        setBoardFormData(kDefaultBoardForm);
-        
-        setErrorMessage(`Board ${boardFormData.title} created successfully`)
-        setTimeout(() => setErrorMessage(''), 3000); 
+  const onHandleSubmit = (event) => {
+    event.preventDefault();
+    setErrorMessage('');
+    
+    try {
+      const errors = [];
+      
+      // Check all conditions and collect errors
+      if (!boardFormData.title) {
+        errors.push("Title cannot be empty!");
+      }
+      if (!boardFormData.owner) {
+        errors.push("Owner cannot be empty!");
+      }
+      if (boardFormData.title && boardFormData.title.length < 3) {
+        errors.push("Title must be at least 3 characters!");
+      }
+      if (boardFormData.owner && boardFormData.owner.length < 3) {
+        errors.push("Owner must be at least 3 characters!");
+      }
+  
+      // If there are any errors, throw them all
+      if (errors.length > 0) {
+        throw new Error(errors.join('\n'));
+      }
+      
+      // If validation passes
+      handleBoardSubmit(boardFormData);
+      setBoardFormData(kDefaultBoardForm);
+      setErrorMessage(`Board ${boardFormData.title} created successfully`);
+      setTimeout(() => setErrorMessage(''), 3000);
     } catch (error) {
-      setErrorMessage(`Error: ${error.message}`)
+      setErrorMessage(error.message);
     }
   };
 
