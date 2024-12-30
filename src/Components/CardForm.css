@@ -1,0 +1,9 @@
+.card_form {
+    display: flex; 
+    flex-direction: row;
+    justify-content: flex-end;
+    border: 1px solid rgb(35, 136, 162);
+    margin: 50px;
+    background-color: rgb(239, 217, 163);
+    border-radius: 10px;
+}

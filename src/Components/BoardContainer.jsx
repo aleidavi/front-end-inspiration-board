@@ -1,8 +1,12 @@
 import BoardTab from "./BoardTab";
 import './BoardContainer.css';
 import { act } from "react";
+import CardsList from "./CardsList";
 
 const BoardContainer = ({ tabs, activeTab, handleActiveTab }) => {
+  // const cardData = [
+  //   {card_id: 1, message: "text", likes_count: 3, board_id: 1}
+  // ]
   
   const tabComponents = tabs.map((tab, index) => {
     return (
@@ -18,8 +22,13 @@ const BoardContainer = ({ tabs, activeTab, handleActiveTab }) => {
     )
   });
   return (
-    <div className='board-container'>
-      {tabComponents}
+    <div>
+      <div className='board-container'>
+        {tabComponents}
+      </div>
+      <div>
+        {/* <CardsList cards={cardData}/> */}
+      </div>
     </div>
   )
 }  
