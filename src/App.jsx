@@ -4,6 +4,7 @@ import BoardList from './Components/BoardList';
 import CardList from './Components/CardList';
 import Modal from './Components/Modal';
 import NewBoardForm from './Components/NewBoardForm';
+import NewCardForm from './Components/NewCardForm';
 import axios from 'axios';
 
 const kBaseUrl = 'http://localhost:5000'
@@ -48,7 +49,8 @@ function App() {
   const [boardData, setBoardData] = useState([]);
   const [cardData, setCardData] = useState([]);
   
-  const [isOpen, setIsOpen] = useState(false)
+  const [isBoardModalOpen, setIsBoardModalOpen] = useState(false)
+  const [isCardModalOpen, setIsCardModalOpen] = useState(false)
 
   // function that gets board api promise and then chains to set board data 
   const getAllBoards = () => {
@@ -56,7 +58,7 @@ function App() {
       .then(boards => {
         setBoardData(boards)
       })
-  }
+  };
 
   // function that gets card api promise and then chains to set card data 
   const getAllCards = () => {
@@ -64,7 +66,7 @@ function App() {
       .then(cards => {
         setCardData(cards)
       })
-  }
+  };
 
   // get api data when mounting
   useEffect(()=> {
@@ -75,7 +77,7 @@ function App() {
   // Board component calls this fn, passes in id, to set active board
   const handleActiveBoard = (id) => {
     setActiveBoardId(id);
-  }
+  };
 
   // when new Board is submitted
   const handleBoardSubmit = (boardFormData) => {
@@ -84,15 +86,35 @@ function App() {
         setBoardData((prevBoards) => [...prevBoards, result.data])
       })
       .catch((error) => console.log(error))
-  }
-  
+  };
+
+  const handleCardSubmit = (cardFormData) => {
+    if (!activeBoardId) {
+      alert("Please select a board before adding a card.");
+      return;
+  } const newCard = {
+    ...cardFormData,
+    board_id: activeBoardId,
+    likes_count: 0,
+  };
+
+    return axios.post(`${kBaseUrl}/boards/${activeBoardId}/cards`, newCard)
+      .then((result) => {
+        setCardData((prevCards) => [...prevCards, formatApi(result.data)])
+        setIsCardModalOpen(false);
+      })
+        .catch((error) => {
+          console.error("Error adding card:", error);
+          alert("Failed to add the card. Please try again.");
+      });
+};
   return (
     <div className='App'>
       <div className='header'>
         <h1 className='heading'>Dream Board</h1>
         <div className='create-container'>
-          <button onClick={()=> setIsOpen(true)}>New Board</button>
-          <button>New Card</button>
+          <button onClick={()=> setIsBoardModalOpen(true)}>New Board</button>
+          <button onClick={()=>setIsCardModalOpen(true)} disabled={!activeBoardId}>New Card</button>
         </div>
       </div>
       <hr className='divider'></hr>
@@ -109,11 +131,16 @@ function App() {
           activeBoardId={activeBoardId}
         ></CardList>
       </div>
-      <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+      <Modal open={isBoardModalOpen} onClose={() => setIsBoardModalOpen(false)}>
         <h2>Create a New Board</h2>
         <NewBoardForm
           handleBoardSubmit={handleBoardSubmit}
         ></NewBoardForm>
+      </Modal>
+      <Modal open={isCardModalOpen} onClose={() => setIsCardModalOpen(false)}>
+        <h2>Create a New Card</h2>
+        <NewCardForm
+        onCardAdd={handleCardSubmit} />
       </Modal>
     </div>
   )
