@@ -43,11 +43,13 @@ const getAllCardsApi = () => {
       console.log(error)
     })
 };
+
 ///////////////////////
 function App() {
   const [activeBoardId, setActiveBoardId] = useState(0)
   const [boardData, setBoardData] = useState([]);
   const [cardData, setCardData] = useState([]);
+  
   
   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false)
   const [isCardModalOpen, setIsCardModalOpen] = useState(false)
@@ -64,9 +66,41 @@ function App() {
   const getAllCards = () => {
     getAllCardsApi()
       .then(cards => {
+		console.log(cards);
         setCardData(cards)
       })
   };
+
+  // Helper function to remove selected card from back-end database
+  const handleDeleteCard = (cardId) => {
+	return axios.delete(`${kBaseUrl}/cards/${cardId}`)
+		.then(() => {
+			setCardData(cardData => cardData.filter(card => {return card.id !== cardId}));
+		})
+		.catch(error=> {
+			console.log(error);
+		});
+  };
+
+  const handleLikesCount = (cardId) => {
+	const card = cardData.find(card => card.id === cardId);
+  	const updatedLikesCount = card.likesCount + 1;
+
+	return axios.put(`${kBaseUrl}/cards/${cardId}/like`, { likes_count: updatedLikesCount })
+		.then(response => {
+			setCardData(cardData => cardData.map(card => {
+				if (card.id === cardId) {
+				return { ...card, likesCount: updatedLikesCount };
+				} else {
+				return card;
+				}
+		}));
+		})
+		.catch(error => {
+		console.log(`Error: ${error}`);
+		});
+	};
+	
 
   // get api data when mounting
   useEffect(()=> {
@@ -129,6 +163,8 @@ function App() {
         <CardList
           cardData={cardData}
           activeBoardId={activeBoardId}
+		  handleDeleteCard={handleDeleteCard}
+		  handleLikesCount={handleLikesCount}
         ></CardList>
       </div>
       <Modal open={isBoardModalOpen} onClose={() => setIsBoardModalOpen(false)}>
