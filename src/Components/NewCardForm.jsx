@@ -9,7 +9,7 @@ const NewCardForm = ({handleCardSubmit}) => {
 	const [errorMsg, setErrorMsg] = useState('');
 	const [msgCharCount, setCurrentCharCount] = useState(0);
 
-    const handleCardMessageChange = (event, e) => {
+    const handleCardMessageChange = (event) => {
 		const fieldName = event.target.name;
 		const fieldValue = event.target.value;
 		const newCardMsg = {...cardMessage, [fieldName]: fieldValue};
@@ -41,7 +41,7 @@ const NewCardForm = ({handleCardSubmit}) => {
 			handleCardSubmit(cardMessage);
 			setCardMessage(kDefaultCardForm);
 			setErrorMsg('Card message created successfully.');
-			setTimeout(() => setErrorMsg(''), 30000);
+			setTimeout(() => setErrorMsg(''), 3000);
 		}catch(error) {
 			setErrorMsg(error.message);
 		}
