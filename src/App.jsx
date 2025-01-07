@@ -126,16 +126,13 @@ function App() {
 
   const handleCardSubmit = (cardFormData) => {
     if (!activeBoardId) {
-		return alert("Please select a board before adding a card.");
-      
+      alert("Please select a board before adding a card.");
+      return;
   } const newCard = {
     ...cardFormData,
     board_id: activeBoardId,
     likes_count: 0,
   };
-
-
-
 
     return axios.post(`${kBaseUrl}/boards/${activeBoardId}/cards`, newCard)
       .then((result) => {
@@ -155,8 +152,7 @@ const handleSortChange = (sortOption) => {
       <div className='header'>
         <h1 className='heading'>Dream Board</h1>
         <div className='create-container'>
-<<<<<<< HEAD
-          <button onClick={()=> setIsBoardModalOpen(true)}>New Board</button>
+          <button onClick={()=> setIsBoardModalOpen(true)}>+ Board</button>
           <button 
             onClick={() => {
               if (!activeBoardId) {
@@ -165,24 +161,8 @@ const handleSortChange = (sortOption) => {
                 setIsCardModalOpen(true);
               }
             }} 
-          >
-            New Card
-          </button>
+          >+ Card  </button>
           <SortDropdown onSortChange={handleSortChange}/>
-||||||| 549c1ed
-          <button onClick={()=> setIsBoardModalOpen(true)}>New Board</button>
-          <button onClick={()=>setIsCardModalOpen(true)} disabled={!activeBoardId}>New Card</button>
-=======
-          <button onClick={()=> setIsBoardModalOpen(true)}>+ board</button>
-          <button onClick={()=>{
-			if (!activeBoardId){
-			alert("To add a card, please select a board.");
-
-			} else {setIsCardModalOpen(true)} 
-			}}
-		>+ card</button>
-
->>>>>>> refs/remotes/origin/main
         </div>
       </div>
       <hr className='divider'></hr>
@@ -202,15 +182,15 @@ const handleSortChange = (sortOption) => {
         ></CardList>
       </div>
       <Modal open={isBoardModalOpen} onClose={() => setIsBoardModalOpen(false)}>
-        <h2>Create Board </h2>
+        <h2>Create a New Board</h2>
         <NewBoardForm
           handleBoardSubmit={handleBoardSubmit}
         ></NewBoardForm>
       </Modal>
       <Modal open={isCardModalOpen} onClose={() => setIsCardModalOpen(false)}>
-        <h2>Create Card</h2>
+        <h2>Create a New Card</h2>
         <NewCardForm
-        handleCardSubmit={handleCardSubmit} />
+        onCardAdd={handleCardSubmit} />
       </Modal>
     </div>
   )
