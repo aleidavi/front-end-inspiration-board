@@ -7,7 +7,7 @@
     position: relative;
 }
 .plus1 {
-    background: transparent ;
+    background: transparent;
 }
 
 .delete {
@@ -26,14 +26,14 @@
 }
 .message {
     text-align: center;
-    font-size: 18px;
+    font-size: 0.75rem;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 .likes-container {
     display: flex;
     align-items: center;
-    gap: 7px;
+    gap: 0.5rem;
 }
 .like-count{
     font-size: 18px;
