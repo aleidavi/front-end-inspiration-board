@@ -7,7 +7,7 @@
     position: relative;
 }
 .plus1 {
-    background: transparent ;
+    background: transparent;
 }
 
 .delete {
@@ -17,25 +17,48 @@
     position: absolute;
     top: 5px;
     right: 5px;
+    cursor:pointer;
 }
 
 .delete:hover {
     color: red;
     border: none;
 }
+.message {
+    text-align: center;
+    font-size: 0.75rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.likes-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.like-count{
+    font-size: 18px;
+    font-weight: bold;
+    color: #434242;
+}
 
-
-.c1 {
+.card-box.c1 {
     background-color: rgb(255, 128, 128);
 
 }
-.c2 {
+.card-box.c2 {
     background-color: rgb(247, 170, 69);
 }
 
-.c3 {
+.card-box.c3 {
     background-color: rgb(255, 228, 153);
 }
-c4 {
+.card-box.c4 {
     background-color: green;
+}
+.card-box.c5 {
+    background-color: rgb(77, 116, 243);
+}
+
+.card-box.c6 {
+    background-color: rgb(141, 77, 243);
 }

@@ -6,6 +6,7 @@ import Modal from './Components/Modal';
 import NewBoardForm from './Components/NewBoardForm';
 import NewCardForm from './Components/NewCardForm';
 import axios from 'axios';
+import SortDropdown from './Components/SortDropdown';
 
 const kBaseUrl = 'http://localhost:5000'
 
@@ -32,8 +33,9 @@ const getAllBoardsApi = () => {
 }
 
 // helper function to get CARD info from backend
-const getAllCardsApi = () => {
-  return axios.get(`${kBaseUrl}/cards`)
+const getAllCardsApi = (sortBy = '') => {
+  const sortParam = sortBy ? `?sort_by=${sortBy}` : '';
+  return axios.get(`${kBaseUrl}/cards${sortParam}`)
     .then(response => {
       const apiCards = response.data;
       const newCards = apiCards.map(formatApi);
@@ -44,29 +46,12 @@ const getAllCardsApi = () => {
     })
 };
 
-//const increaseLikesCount = (apiCardId) => {
-//	console.log(apiCardId)
-//	console.log(`${kBaseUrl}/cards/${apiCardId}/like`)
-//
-//	return axios.put(`${kBaseUrl}/cards/${apiCardId}/like`)
-//	.then(response => {
-//		const updatedCard = formatApi(response.data);
-//		console.log(response.data);
-//		return updatedCard;
-//	})
-//	.catch(error => {
-//		console.log(error);
-//	})
-//};
-
-
 ///////////////////////
 function App() {
   const [activeBoardId, setActiveBoardId] = useState(0)
   const [boardData, setBoardData] = useState([]);
   const [cardData, setCardData] = useState([]);
-  
-  
+  const [sortBy, setSortBy] = useState('');
   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false)
   const [isCardModalOpen, setIsCardModalOpen] = useState(false)
 
@@ -79,8 +64,8 @@ function App() {
   };
 
   // function that gets card api promise and then chains to set card data 
-  const getAllCards = () => {
-    getAllCardsApi()
+  const getAllCards = (sortBy = '') => {
+    getAllCardsApi(sortBy)
       .then(cards => {
 		console.log(cards);
         setCardData(cards)
@@ -120,9 +105,10 @@ function App() {
 
   // get api data when mounting
   useEffect(()=> {
+    console.log('Sorting by:', sortBy);
     getAllBoards();
-    getAllCards();
-  },[]);
+    getAllCards(sortBy);
+  },[sortBy]);
 
   // Board component calls this fn, passes in id, to set active board
   const handleActiveBoard = (id) => {
@@ -158,13 +144,25 @@ function App() {
           alert("Failed to add the card. Please try again.");
       });
 };
+const handleSortChange = (sortOption) => {
+  setSortBy(sortOption);
+}
   return (
     <div className='App'>
       <div className='header'>
         <h1 className='heading'>Dream Board</h1>
         <div className='create-container'>
-          <button onClick={()=> setIsBoardModalOpen(true)}>New Board</button>
-          <button onClick={()=>setIsCardModalOpen(true)} disabled={!activeBoardId}>New Card</button>
+          <button onClick={()=> setIsBoardModalOpen(true)}>+ Board</button>
+          <button 
+            onClick={() => {
+              if (!activeBoardId) {
+                alert("Please select a board before adding a card.");
+              } else {
+                setIsCardModalOpen(true);
+              }
+            }} 
+          >+ Card  </button>
+          <SortDropdown onSortChange={handleSortChange}/>
         </div>
       </div>
       <hr className='divider'></hr>
@@ -179,8 +177,8 @@ function App() {
         <CardList
           cardData={cardData}
           activeBoardId={activeBoardId}
-		  handleDeleteCard={handleDeleteCard}
-		  handleLikesCount={handleLikesCount}
+		      handleDeleteCard={handleDeleteCard}
+		      handleLikesCount={handleLikesCount}
         ></CardList>
       </div>
       <Modal open={isBoardModalOpen} onClose={() => setIsBoardModalOpen(false)}>
@@ -192,7 +190,7 @@ function App() {
       <Modal open={isCardModalOpen} onClose={() => setIsCardModalOpen(false)}>
         <h2>Create a New Card</h2>
         <NewCardForm
-        onCardAdd={handleCardSubmit} />
+        handleCardSubmit={handleCardSubmit} />
       </Modal>
     </div>
   )

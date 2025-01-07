@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './NewBoardForm.css'
+import './NewBoardForm.css';
 
 const NewBoardForm = ({ handleBoardSubmit}) => {
   const kDefaultBoardForm = {
@@ -46,21 +46,21 @@ const NewBoardForm = ({ handleBoardSubmit}) => {
       // If validation passes
       handleBoardSubmit(boardFormData);
       setBoardFormData(kDefaultBoardForm);
-      setErrorMessage(`Board ${boardFormData.title} created successfully`);
+      setErrorMessage(`Board ${boardFormData.title} created successfully.`);
       setTimeout(() => setErrorMessage(''), 3000);
     } catch (error) {
       setErrorMessage(error.message);
     }
   };
 
-  const emptyTitle = !boardFormData.title ? 'empty': ''
-  const emptyOwner = !boardFormData.owner ? 'empty': ''
+  const emptyTitle = !boardFormData.title ? 'empty': '';
+  const emptyOwner = !boardFormData.owner ? 'empty': '';
 
   return (
     <>
       <form onSubmit={onHandleSubmit}>
         <div className='form-field'>
-          <label htmlFor='title'>Title:  </label>
+          <label htmlFor='title'> Title:    </label>
           <input className={emptyTitle}
             type='text'
             id='title'
