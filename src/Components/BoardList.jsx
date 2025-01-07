@@ -1,5 +1,5 @@
 import Board from "./Board";
-import './boardList.css';
+import './BoardList.css';
 
 
 const boardList = ({ boardData, handleActiveBoard }) => {

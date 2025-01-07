@@ -162,7 +162,7 @@ const handleSortChange = (sortOption) => {
               }
             }} 
           >+ Card  </button>
-          <SortDropdown onSortChange={handleSortChange}/>
+          
         </div>
       </div>
       <hr className='divider'></hr>
@@ -173,6 +173,7 @@ const handleSortChange = (sortOption) => {
           handleActiveBoard={handleActiveBoard}
         ></BoardList>
       </div>
+	  <SortDropdown onSortChange={handleSortChange}/>
       <div>
         <CardList
           cardData={cardData}
