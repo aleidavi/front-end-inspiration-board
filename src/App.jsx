@@ -190,7 +190,7 @@ const handleSortChange = (sortOption) => {
       <Modal open={isCardModalOpen} onClose={() => setIsCardModalOpen(false)}>
         <h2>Create a New Card</h2>
         <NewCardForm
-        onCardAdd={handleCardSubmit} />
+        handleCardSubmit={handleCardSubmit} />
       </Modal>
     </div>
   )
