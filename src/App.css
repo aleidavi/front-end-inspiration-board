@@ -41,6 +41,13 @@ button {
   background-color: rgb(235, 62, 62);
 }
 
-.all {
+/*.all {
   height: 40.1875px;
+}*/
+.all {
+	padding: 5px;
+	width: 100%;
+	max-width: 1000px;
+	display: flex;
 }
+

@@ -9,7 +9,7 @@ const BoardTab = ({ id, title, index, handleActiveBoard}) => {
           // index + 1 so that it matches the id of the card in the db
           className={`tab-button one c${index+1}`}
           onClick={() => onTabClick()}
-          ># {title}</button>
+          >#{title}</button>
       </div>
     );
 };
