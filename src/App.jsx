@@ -68,7 +68,7 @@ function App() {
   const getAllCards = (sortBy = '') => {
     getAllCardsApi(sortBy)
       .then(cards => {
-		console.log(cards);
+
         setCardData(cards)
       })
   };
@@ -115,6 +115,9 @@ function App() {
   const handleActiveBoard = (id) => {
     setActiveBoardId(id);
   };
+
+  // Finding the activeBoardId object to display to user!
+  const activeBoard = boardData.find(board => board.id === activeBoardId);
 
   // when new Board is submitted
   const handleBoardSubmit = (boardFormData) => {
@@ -174,7 +177,14 @@ const handleSortChange = (sortOption) => {
           handleActiveBoard={handleActiveBoard}
         ></BoardList>
       </div>
+	  	{activeBoard && (
+		<div className='active-board'>
+			<h3> Selected Board: {activeBoard.title} </h3>
+		</div>
+		)}
+	  <></>
 	  <SortDropdown onSortChange={handleSortChange}/>
+	  <></>
       <div>
         <CardList
           cardData={cardData}
@@ -190,9 +200,16 @@ const handleSortChange = (sortOption) => {
         ></NewBoardForm>
       </Modal>
       <Modal open={isCardModalOpen} onClose={() => setIsCardModalOpen(false)}>
-        <h2>Create a New Card</h2>
+		<h2>
+			Selected board {activeBoard.title}
+		</h2>
+        <h3>
+			Create a new card!
+		</h3>
+
         <NewCardForm
-        handleCardSubmit={handleCardSubmit} />
+        handleCardSubmit={handleCardSubmit} 
+		/>
       </Modal>
     </div>
   )
