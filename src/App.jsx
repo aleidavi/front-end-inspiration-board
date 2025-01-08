@@ -177,10 +177,12 @@ const handleSortChange = (sortOption) => {
           handleActiveBoard={handleActiveBoard}
         ></BoardList>
       </div>
-	  	{activeBoard && (
+		{activeBoard ? (
 		<div className='active-board'>
-			<h3> Selected Board: {activeBoard.title} </h3>
+			<h3>Selected Board:  #{activeBoard.title}</h3>
 		</div>
+		) : (
+		<h3>Please select a board.</h3>
 		)}
 	  <></>
 	  <SortDropdown onSortChange={handleSortChange}/>
@@ -200,10 +202,9 @@ const handleSortChange = (sortOption) => {
         ></NewBoardForm>
       </Modal>
       <Modal open={isCardModalOpen} onClose={() => setIsCardModalOpen(false)}>
-		<h2>
-			Selected board {activeBoard.title}
-		</h2>
+			
         <h3>
+			
 			Create a new card!
 		</h3>
 
