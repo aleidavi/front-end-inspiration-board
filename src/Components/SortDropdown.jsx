@@ -7,10 +7,10 @@ const SortDropdown = ({ onSortChange }) => {
     };
     return (
         <select onChange={handleSortChange}>
-            <option value="">Sort by</option>
-            <option value="likes_count">Likes</option>
+            <option value=""> Sort cards by </option>
+            <option value="likes_count">likes</option>
             <option value="id">ID</option>
-            <option value="message">Alphabetical</option>
+            <option value="message">alphabetical order</option>
         </select>
     );
 };

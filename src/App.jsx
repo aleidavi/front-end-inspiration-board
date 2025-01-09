@@ -160,7 +160,7 @@ const handleSortChange = (sortOption) => {
           <button 
             onClick={() => {
               if (!activeBoardId) {
-                alert("Please select a board before adding a card.");
+                alert("Please select a board before adding a card. If no board is available to select, add a board.");
               } else {
                 setIsCardModalOpen(true);
               }
@@ -179,13 +179,14 @@ const handleSortChange = (sortOption) => {
       </div>
 		{activeBoard ? (
 		<div className='active-board'>
-			<h3>Selected Board:  #{activeBoard.title}</h3>
+			<h3 className ="board-select">#{activeBoard.title}</h3>
 		</div>
 		) : (
-		<h3>Please select a board.</h3>
+		<h3 className="board-select none">Please select a board to add a card.</h3>
 		)}
 	  <></>
-	  <SortDropdown onSortChange={handleSortChange}/>
+	  <SortDropdown onSortChange={handleSortChange}
+	  />
 	  <></>
       <div>
         <CardList
@@ -204,12 +205,12 @@ const handleSortChange = (sortOption) => {
       <Modal open={isCardModalOpen} onClose={() => setIsCardModalOpen(false)}>
 			
         <h3>
-			
-			Create a new card!
+			Create a new card.
 		</h3>
 
         <NewCardForm
         handleCardSubmit={handleCardSubmit} 
+		activeBoard={activeBoard}
 		/>
       </Modal>
     </div>

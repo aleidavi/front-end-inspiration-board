@@ -1,13 +1,12 @@
 .card-box {
-    height: 100px;
-    width: 100px;
+    height: 120px;
+    width: 120px;
     padding: 2em;
     background-color: red;
     border-radius: 8px;
     position: relative;
-}
-.plus1 {
-    background: transparent;
+
+	display: grid;
 }
 
 .delete {
@@ -25,20 +24,75 @@
     border: none;
 }
 .message {
+
+	max-width: 100px;
+    max-height: 100px;
+    /*overflow-y: auto; Hide any overflow content*/
+    /*text-overflow: ellipsis; Add ellipsis (...) for overflow text*/
+    white-space: nowrap; /* Prevent text from wrapping */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
     text-align: center;
     font-size: 0.75rem;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-weight: bold; /* U
+
+	/*flex: grid;*/
+	/*max-width: 100px;
+	max-height: 80px;*/
+	/*width: 100%;
+	height: 100%;*/
+	/*justify-content: top;
+
+    text-align: center;
+    font-size: 0.8rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+	font-style: bold;*/
 }
+
 .likes-container {
-    display: flex;
+	display: flex;
+	max-width: 100px;
+	max-height: 30px;
+	width: 100%;
+	height: 100%;
+
     align-items: center;
-    gap: 0.5rem;
+	
+	justify-content: center;
+
+	margin-top: 2px;
+    margin-bottom: 0;
+
 }
-.like-count{
-    font-size: 18px;
-    font-weight: bold;
-    color: #434242;
+.likes-count{
+
+	margin-top: 0rem;
+    margin-bottom: 0rem;
+
+	margin-left: 0.5rem;
+    font-size: 0.8rem;
+
+
+    color: black;
+
+	padding: 5px;
+	max-width: 50px;
+	width: 100%;
+
+}
+
+.plus1 {
+	font-size: 0.8rem;
+	color: black;
+	cursor: pointer;
+
+	padding: 5px;
+	max-width: 50px;
+	width: 100%;
+
+	background: transparent;
 }
 
 .card-box.c1 {

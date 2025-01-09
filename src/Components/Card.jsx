@@ -14,10 +14,10 @@ const Card = ({ id, message, boardId, likesCount, handleDeleteCard, handleLikesC
 		<div className={`card-box one c${boardId}`}>
 		  <button className="delete" onClick={onDeleteCard}>x</button>
 		  <p className="message">{message}</p>
-      <div className="likes-container">
-        <p className="likes-count">{likesCount}</p>
-		    <button className="plus1" onClick={onLikeCard}>+1</button>
-      </div>
+			<div className="likes-container">
+				<p className="likes-count">{likesCount}🖤 </p>
+				<button className="plus1" onClick={onLikeCard}>+1</button>
+			</div>
 		</div>
 	);
 	};

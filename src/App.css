@@ -42,5 +42,10 @@ button {
 }
 
 .all {
-  height: 40.1875px;
+  height: 50px;
+}
+
+
+button.tab-button.one {
+	height: 50px;
 }

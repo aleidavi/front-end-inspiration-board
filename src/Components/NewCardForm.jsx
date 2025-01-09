@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './NewCardForm.css';
 
-const NewCardForm = ({handleCardSubmit}) => {
+const NewCardForm = ({handleCardSubmit, activeBoard}) => {
 	const kDefaultCardForm = {
 		message: ''
 	}
